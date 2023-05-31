@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<header th:fragment="header" class="header-section">
+    <div class="container-fluid">
+        <a class="site-logo" href="/" style="margin-left: 10px">
+            <img src="/images/logo.png" alt="">
+        </a>
+        <div th:if="${!isAuthenticated}">
+            <a type="submit" class="btn btn-dark user-panel register" href="/register">
+                Register
+            </a>
+            <a class="btn btn-dark user-panel" href="/login">
+                Login
+            </a>
+        </div>
+        <div th:unless="${!isAuthenticated}">
+            <a class="btn btn-dark login user-panel profile" href="/profile" th:text="${nickname}"></a>
+            <a type="submit" class="btn btn-dark user-panel" href="/deposit" style="border-radius: 0 7px 7px 0">
+                Deposit
+            </a>
+        </div>
+        <div class="balance-panel balance" th:if="${isAuthenticated}">
+            <span th:text="${balance} + ' ' + руб." ></span>
+        </div>
+
+
+        <nav class="main-menu" th:if = "${isAuthenticated}">
+            <ul>
+                <li><a href="/games/slots">Slots</a></li>
+                <li><a href="/leaderboard">Leaderboard</a></li>
+                <li><a href="/support">Support</a></li>
+                <li th:if="${role} == 0"><a href="/admin">Admin</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+</body>
+</html>

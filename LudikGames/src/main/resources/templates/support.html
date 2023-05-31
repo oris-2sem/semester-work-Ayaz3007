@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blackjack</title>
+    <link href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/webjars/bootstrap/5.2.3/js/bootstrap.min.js"></script>
+    <link href="/css/all.css" rel="stylesheet" type="text/css">
+    <link href="/css/chat-list.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div th:insert="header :: header">
+
+</div>
+<th:block th:if="${user == 2}" th:insert="supports :: chatList">
+
+</th:block>
+<th:block th:if="${user != 2}">
+    <div th:insert="supports :: supportButton">
+
+    </div>
+</th:block>
+</body>
+</html>

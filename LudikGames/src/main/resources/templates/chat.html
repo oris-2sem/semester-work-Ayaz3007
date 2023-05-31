@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="chat" class="chat-container" id="chat" style="z-index: 1">
+    <div class="chat-header">
+        <h3 style="color: #fff">Chat</h3>
+    </div>
+    <div class="chat-messages" id="response">
+        <th:block th:each="messageOutput: ${chatMessages}">
+            <div class="message">
+                <div class="message-nickname" th:text="${messageOutput.from}">John</div>
+                <div class="message-content" th:text="${messageOutput.text}"></div>
+                <div class="message-time" th:text="${messageOutput.time}"></div>
+            </div>
+        </th:block>
+    </div>
+    <div class="chat-input">
+        <input class="form-control" type="text" id="text" placeholder="Введите сообщение" />
+        <button class="btn btn-success" id="sendMessage" onclick="sendMessage()">Отправить</button>
+    </div>
+</div>
+</body>
+</html>

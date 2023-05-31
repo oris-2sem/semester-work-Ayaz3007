@@ -1,0 +1,9 @@
+package com.example.ludikgames.repository;
+
+import com.example.ludikgames.model.BlackJackLobby;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.UUID;
+
+public interface BlackJackRepository extends JpaRepository<BlackJackLobby, UUID> {
+}

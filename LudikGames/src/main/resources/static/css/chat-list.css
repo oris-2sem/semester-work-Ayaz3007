@@ -1,0 +1,40 @@
+body {
+    background-color: #282828;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.chat-list {
+    width: 50%;
+    height: 500px;
+    background-color: #282828;
+    color: #fff;
+    border: 1px solid #fff;
+    overflow-y: scroll;
+}
+
+.chat-item {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    color: inherit;
+}
+.chat-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.chat-item:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.chat-item-content {
+    padding: 10px;
+    border-bottom: 1px solid #fff;
+}

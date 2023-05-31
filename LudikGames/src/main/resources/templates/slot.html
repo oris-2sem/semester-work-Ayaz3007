@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Slot</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/{slotName}.css(slotName=${slotName})}">
+    <script src="/js/slotEngine.js"></script>
+    <link href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/webjars/bootstrap/5.2.3/js/bootstrap.min.js"></script>
+    <link href="/css/chat.css" rel="stylesheet" type="text/css">
+    <script src="/js/chat.js"></script>
+    <link href="/css/all.css" rel="stylesheet" type="text/css">
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <link href="/css/slot.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<header class="header-section">
+    <div class="container-fluid">
+        <a class="site-logo" href="/" style="margin-left: 10px">
+            <img src="/images/logo.png" alt="">
+        </a>
+        <div th:if="${!isAuthenticated}">
+            <a type="submit" class="btn btn-dark user-panel register" href="/register">
+                Register
+            </a>
+            <a class="btn btn-dark user-panel" href="/login">
+                Login
+            </a>
+        </div>
+        <div th:unless="${!isAuthenticated}">
+            <a class="btn btn-dark login user-panel profile" href="/profile" th:text="${nickname}"></a>
+            <a type="submit" class="btn btn-dark user-panel" href="/deposit" style="border-radius: 0 7px 7px 0">
+                Deposit
+            </a>
+        </div>
+        <div class="balance-panel balance" th:if="${isAuthenticated}">
+            <span th:text="${balance} + ' ' + руб." ></span>
+        </div>
+
+
+        <nav class="main-menu" th:if = "${isAuthenticated}">
+            <ul>
+                <li><a href="/games/slots">Slots</a></li>
+                <li><a href="/games/blackjack">Blackjack</a></li>
+                <li><a href="/leaderboard">Leaderboard</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div th:insert="${viewName} :: ${slotName}">
+
+</div>
+<div th:insert="chat :: chat">
+
+</div>
+<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/webjars/bootstrap/5.2.3/js/bootstrap.min.js"></script>
+    <link href="/css/all.css" rel="stylesheet" type="text/css">
+    <link href="/css/profile.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div th:insert="header :: header">
+
+</div>
+<div class="container" style="margin-top: 150px">
+    <div class="profile-container">
+        <h2 class="profile-heading">Профиль</h2>
+        <div class="profile-block">
+            <h4 th:text="${nickname}"></h4>
+            <p th:text="${email}"></p>
+            <form action="/users" method="post" name="phone">
+                <div class="form-group">
+                    <label for="phoneNumber" class="form-label">Номер телефона</label>
+                    <input type="tel" name="phoneNumber" class="form-control" id="phoneNumber" placeholder="Введите номер телефона">
+                </div>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            </form>
+            <form action="/logout">
+                <button class="btn btn-danger mt-3" type="submit">Выйти</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

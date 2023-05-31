@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/webjars/bootstrap/5.2.3/js/bootstrap.min.js"></script>
+    <script src="/js/support-chat.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <link href="/css/chat-support.css" rel="stylesheet" type="text/css">
+    <link href="/css/all.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div th:insert="header :: header">
+
+</div>
+<h2 th:if="${user != 2}" th:text="'Moderator: ' + ${moderatorName}" style="margin-left: 45%;
+    color: white;
+    margin-top: 150px;"></h2>
+<h2 th:if="${user == 2}" th:text="'User: ' + ${userName}" style="margin-left: 45%;
+    color: white;
+    margin-top: 150px;"></h2>
+<div class="chat" >
+    <div class="message-list">
+        <th:block th:each="message: ${messages}">
+            <div th:if="${message.user.nickname} != ${nickname}" class="message other-message">
+                <p class="message-text" th:text="${message.message}"></p>
+            </div>
+            <div th:if="${message.user.nickname} == ${nickname} "class="message user-message">
+                <p class="message-text" th:text="${message.message}"></p>
+            </div>
+        </th:block>
+    </div>
+    <div class="input-area">
+        <input type="text" class="input-field" placeholder="Введите сообщение">
+        <button class="send-button" onclick="sendMessage()">Отправить</button>
+    </div>
+    <input id="chatId" type="hidden" th:value="${chatId}">
+</div>
+</body>
+</html>

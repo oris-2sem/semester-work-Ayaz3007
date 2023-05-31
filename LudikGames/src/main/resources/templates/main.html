@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>LudikGames</title>
+    <link href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/webjars/bootstrap/5.2.3/js/bootstrap.min.js"></script>
+    <link href="/css/all.css" rel="stylesheet" type="text/css">
+    <link href="/css/main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div th:insert="header :: header">
+
+    </div>
+    <div class="form-container">
+        <form action="/" method="post">
+            <input type="submit" value="Начать играть" class="btn btn-success" style="width: 280px; height: 70px; font-size: 25px"/>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        </form>
+    </div>
+</body>
+</html>

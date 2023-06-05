@@ -9,4 +9,6 @@ public interface SupportChatService {
 
     void saveMessage(SupportMessageDto supportMessageDto);
     SupportChat getChatById(String uuid);
+
+    void deleteChat(String uuid);
 }

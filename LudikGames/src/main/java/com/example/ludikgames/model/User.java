@@ -3,12 +3,9 @@ package com.example.ludikgames.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Check;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.HashSet;
 import java.util.List;
@@ -18,7 +15,6 @@ import java.util.UUID;
 @Entity(name = "users")
 @AllArgsConstructor
 @Builder
-@Data
 @NoArgsConstructor
 public class User {
     @Id
@@ -37,19 +33,14 @@ public class User {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "Favourite_slots",
+            name = "favourite_slots",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "slot_id")}
     )
     private Set<Slot> slots = new HashSet<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "place_id")
+    @OneToOne(mappedBy = "user")
     private Leaderboard place;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "big_wins_id")
-    private BigWinsList bigWinsPlace;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private Set<ChatMessage> chatMessage;
@@ -65,8 +56,8 @@ public class User {
         return this.state.equals(State.BANNED);
     }
 
-    public boolean isConfirmed() {
-        return this.state.equals(State.CONFIRMED);
+    public boolean isActive() {
+        return this.state.equals(State.ACTIVE);
     }
 
 
@@ -85,10 +76,119 @@ public class User {
     }
 
     public enum State {
-        NOT_CONFIRMED,
-        CONFIRMED,
-        DELETED,
+        ACTIVE,
         BANNED
     }
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void setHashPassword(String hashPassword) {
+        this.hashPassword = hashPassword;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
+
+    public void setRank(Rank rank) {
+        this.rank = rank;
+    }
+
+    public void setBattlePassProgress(Integer battlePassProgress) {
+        this.battlePassProgress = battlePassProgress;
+    }
+
+    public void setBalance(Integer balance) {
+        this.balance = balance;
+    }
+
+    public void setSlots(Set<Slot> slots) {
+        this.slots = slots;
+    }
+
+    public void setPlace(Leaderboard place) {
+        this.place = place;
+    }
+
+    public void setChatMessage(Set<ChatMessage> chatMessage) {
+        this.chatMessage = chatMessage;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public void setChats(List<SupportChat> chats) {
+        this.chats = chats;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getHashPassword() {
+        return hashPassword;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public Integer getBattlePassProgress() {
+        return battlePassProgress;
+    }
+
+    public Integer getBalance() {
+        return balance;
+    }
+
+    public Set<Slot> getSlots() {
+        return slots;
+    }
+
+    public Leaderboard getPlace() {
+        return place;
+    }
+
+    public Set<ChatMessage> getChatMessage() {
+        return chatMessage;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public List<SupportChat> getChats() {
+        return chats;
+    }
 }

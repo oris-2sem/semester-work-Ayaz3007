@@ -21,7 +21,8 @@ public class Leaderboard {
     @GeneratedValue(strategy = GenerationType.UUID)
     @GenericGenerator(name="UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID uuid;
-    @OneToOne(mappedBy = "place")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "place_id")
     private User user;
     private Integer points;
 }

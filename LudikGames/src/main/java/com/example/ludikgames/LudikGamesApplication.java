@@ -1,5 +1,6 @@
 package com.example.ludikgames;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,11 @@ public class LudikGamesApplication {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 
 }

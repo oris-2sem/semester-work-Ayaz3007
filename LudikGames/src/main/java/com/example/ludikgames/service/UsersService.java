@@ -25,4 +25,12 @@ public interface UsersService {
     Set<Slot> getFavouriteSlots(String email);
 
     void updatePhoneNumber(String phoneNumber, String email);
+
+    User getUserByEmail(String email);
+
+    List<User> getAllUsers();
+
+    void changeUserRoleByEmail(String email);
+    void changeUserStateByEmail(String email);
+
 }

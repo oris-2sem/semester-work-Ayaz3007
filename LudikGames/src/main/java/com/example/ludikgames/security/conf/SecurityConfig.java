@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
@@ -27,7 +28,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers( "/register", "/").permitAll()
                 .requestMatchers("/resources/**", "/static/**","/webjars/**", "/css/**", "js/**", "images/**").permitAll()
-                .requestMatchers("/admin").hasAuthority("ADMIN")
+                .requestMatchers("/admin").hasAnyAuthority("ADMIN", "MODERATOR")
                 .anyRequest().authenticated();
 
         httpSecurity.formLogin()
@@ -43,6 +44,13 @@ public class SecurityConfig {
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)
                 .permitAll();
+
+//        httpSecurity.csrf()
+//                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+        httpSecurity.headers()
+                .xssProtection()
+                .and()
+                .contentSecurityPolicy("script-src 'self'");
 
 
         return httpSecurity.build();

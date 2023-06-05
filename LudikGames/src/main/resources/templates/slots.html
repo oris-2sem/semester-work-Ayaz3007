@@ -32,7 +32,10 @@
                         <button class="table-button btn btn-success" th:text="${slots[j].slotName}" type="submit"></button>
                     </form>
                     <div style="display: inline-block; color: white">
-                        <input onchange="favourite(this)"  type="checkbox" id="checkbox" th:value="${slots[j].uuid}">
+                        <input th:if="${!#lists.contains(slots[j].users, user)}"
+                               class="check" type="checkbox" th:value="${slots[j].uuid}">
+                        <input th:if="${#lists.contains(slots[j].users, user)}" checked
+                               class="check"  type="checkbox" th:value="${slots[j].uuid}">
                         <span>В любимые</span>
                     </div>
                 </div>

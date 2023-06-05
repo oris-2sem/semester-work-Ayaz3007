@@ -1,5 +1,6 @@
 package com.example.ludikgames.controller.authenticated_pages;
 
+import com.example.ludikgames.dto.SupportChatIdDto;
 import com.example.ludikgames.dto.SupportMessageDto;
 import com.example.ludikgames.model.SupportChat;
 import com.example.ludikgames.service.SupportChatService;
@@ -9,9 +10,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.UUID;
@@ -65,5 +64,12 @@ public class SupportController {
         }
         model.addAttribute("user", usersService.getRoleByEmail(principal.getName()));
         return "chat-support";
+    }
+
+    @PostMapping("/support/delete")
+    public String deleteChat(@ModelAttribute("chatId")SupportChatIdDto supportChatIdDto) {
+        supportChatService.deleteChat(supportChatIdDto.getChatId());
+
+        return "redirect:/support";
     }
 }

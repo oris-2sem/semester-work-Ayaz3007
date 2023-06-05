@@ -9,6 +9,8 @@ window.addEventListener('load', function() {
             displayMessage(message.sender, message.content);
         });
     });
+    let button = document.getElementsByClassName("send-button")[0];
+    button.addEventListener('click', sendMessage);
 });
 
 function sendMessage() {

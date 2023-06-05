@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Classic</title>
+</head>
+<body>
+<div id="slot-machine" style="margin-top: 150px" th:fragment="classic">
+    <h2 id="title">Slot Machine Game</h2>
+    <section class="slots">
+        <section>
+            <div class="icons symbol"></div>
+            <div class="icons symbol"></div>
+            <div class="icons symbol"></div>
+        </section>
+        <section>
+            <div class="icons symbol"></div>
+            <div class="icons symbol"></div>
+            <div class="icons symbol"></div>
+        </section>
+        <section>
+            <div class="icons symbol"></div>
+            <div class="icons symbol"></div>
+            <div class="icons symbol"></div>
+        </section>
+        <section>
+            <div class="icons symbol"></div>
+            <div class="icons symbol"></div>
+            <div class="icons symbol"></div>
+        </section>
+        <section>
+            <div class="icons symbol"></div>
+            <div class="icons symbol"></div>
+            <div class="icons symbol"></div>
+        </section>
+    </section>
+
+    <button id="button-slot">Press the button and play!</button>
+    <div id="result">Your result will be visible here!</div>
+    <section>
+        <button class="btn btn-dark" id="less">
+            Less
+        </button>
+        <span id="stake" style="color: white"></span>
+        <button class="btn btn-dark" id="more">
+            More
+        </button>
+    </section>
+    <p style="color: white" id="balance" th:text="'Balance: ' + ${balance}"></p>
+</div>
+</body>
+</html>

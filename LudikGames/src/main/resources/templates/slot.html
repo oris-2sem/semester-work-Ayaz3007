@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Slot</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/{slotName}.css(slotName=${slotName})}">
-    <script src="/js/slotEngine.js"></script>
+    <script th:src="@{/js/{slotName}.js(slotName=${slotName})}"></script>
     <link href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <script src="/webjars/bootstrap/5.2.3/js/bootstrap.min.js"></script>
     <link href="/css/chat.css" rel="stylesheet" type="text/css">

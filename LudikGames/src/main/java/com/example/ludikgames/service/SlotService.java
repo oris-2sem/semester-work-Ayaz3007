@@ -10,7 +10,7 @@ import java.security.Principal;
 import java.util.List;
 
 public interface SlotService {
-    WinResultDto getResult(WinSpinDto spinDto);
+    WinResultDto getResult(WinSpinDto spinDto, String email);
     boolean addSlot(SlotDto slotDto);
     Slot getSlot(String id);
     List<Slot> getAllSlots();

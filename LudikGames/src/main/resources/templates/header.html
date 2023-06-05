@@ -34,7 +34,7 @@
                 <li><a href="/games/slots">Slots</a></li>
                 <li><a href="/leaderboard">Leaderboard</a></li>
                 <li><a href="/support">Support</a></li>
-                <li th:if="${role} == 0"><a href="/admin">Admin</a></li>
+                <li th:if="${role} != 1"><a href="/admin">Admin</a></li>
             </ul>
         </nav>
     </div>

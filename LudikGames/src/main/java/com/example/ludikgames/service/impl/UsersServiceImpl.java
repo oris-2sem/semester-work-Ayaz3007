@@ -1,6 +1,7 @@
 package com.example.ludikgames.service.impl;
 
 import com.example.ludikgames.dto.SignUpDto;
+import com.example.ludikgames.exceptions.NotFoundException;
 import com.example.ludikgames.model.Leaderboard;
 import com.example.ludikgames.model.Slot;
 import com.example.ludikgames.model.User;
@@ -38,12 +39,11 @@ public class UsersServiceImpl implements UsersService {
                 .email(signUpDto.getEmail())
                 .balance(0)
                 .hashPassword(passwordEncoder.encode(signUpDto.getPassword()))
-                .state(User.State.CONFIRMED)
+                .state(User.State.ACTIVE)
                 .role(User.Role.USER)
                 .build();
 
-        leaderboardService.addUser(user);
-        usersRepository.save(user);
+        leaderboardService.addUser(usersRepository.save(user));
 
         return true;
     }
@@ -51,14 +51,12 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public Integer getBalanceByEmail(String email) {
         User user = usersRepository.findByEmail(email).orElseThrow();
-
         return user.getBalance();
     }
 
     @Override
     public Integer setBalanceByEmail(String email, Integer money) {
         User user = usersRepository.findByEmail(email).orElseThrow();
-
         user.setBalance(user.getBalance() + money);
         usersRepository.save(user);
 
@@ -98,6 +96,43 @@ public class UsersServiceImpl implements UsersService {
     public void updatePhoneNumber(String phoneNumber, String email) {
         User user = usersRepository.findByEmail(email).orElseThrow();
         user.setPhone_number(phoneNumber);
+        usersRepository.save(user);
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        User user = usersRepository.findByEmail(email).orElseThrow();
+        return user;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return usersRepository.findAll();
+    }
+
+    @Override
+    public void changeUserRoleByEmail(String email) {
+        User user = usersRepository.findByEmail(email).orElseThrow();
+
+        if(user.getRole() == User.Role.USER) {
+            user.setRole(User.Role.MODERATOR);
+        } else {
+            user.setRole(User.Role.USER);
+        }
+
+        usersRepository.save(user);
+    }
+
+    @Override
+    public void changeUserStateByEmail(String email) {
+        User user = usersRepository.findByEmail(email).orElseThrow();
+
+        if(user.getState() == User.State.ACTIVE) {
+            user.setState(User.State.BANNED);
+        } else {
+            user.setState(User.State.ACTIVE);
+        }
+
         usersRepository.save(user);
     }
 }

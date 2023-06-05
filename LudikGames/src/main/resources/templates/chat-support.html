@@ -34,7 +34,12 @@
     </div>
     <div class="input-area">
         <input type="text" class="input-field" placeholder="Введите сообщение">
-        <button class="send-button" onclick="sendMessage()">Отправить</button>
+        <button class="send-button">Отправить</button>
+        <form th:if="${role == 2}" action="/support/delete" method="post" name="chatId">
+            <input type="submit" class="send-button" style="background-color: crimson" value="Delete chat">
+            <input type="hidden" name="chatId" th:value="${chatId}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        </form>
     </div>
     <input id="chatId" type="hidden" th:value="${chatId}">
 </div>

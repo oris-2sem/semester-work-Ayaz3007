@@ -7,6 +7,10 @@ let arraySymbols = [
 ];
 
 window.addEventListener('load', function() {
+    let less = document.getElementById("less");
+    let more = document.getElementById("more");
+    less.addEventListener('click', decreaseStake);
+    more.addEventListener('click', increaseStake);
     document.getElementById("button-slot").addEventListener("click", game);
     let divs = document.getElementsByClassName("symbol");
     for(let i = 0; i < divs.length; i++) {

@@ -25,7 +25,6 @@ public class ChatMessage {
     private UUID uuid;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
     private String message;
     @CreationTimestamp

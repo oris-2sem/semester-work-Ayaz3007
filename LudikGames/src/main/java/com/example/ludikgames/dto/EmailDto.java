@@ -5,14 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Data
-public class BJPlayerDto {
-    private List<CardDto> cards;
-    private Integer score;
-    private String player;
+public class EmailDto {
+    private String email;
 }

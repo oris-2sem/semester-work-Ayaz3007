@@ -4,17 +4,18 @@ services:
   database:
     image:
       postgres
-    container_name: database_1
+    container_name: db
     networks:
       - cloud
     ports:
-      - 5431:5432
+      - "5431:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=RoflanParol
-      - POSTGRES_DB=jdbc:postgresql://localhost:5432/ludik_db
+      - POSTGRES_DB=ludik_db
     volumes:
       - postgres_volume:/var/lib/postgresql/data
+
 
 
   application:
@@ -24,23 +25,22 @@ services:
       networks:
         - cloud
       ports:
-        - 80:8080
+        - "80:8080"
       depends_on:
         - database
       environment:
         - "SPRING_DATASOURCE_USERNAME=postgres"
-        - "SPRING_DATASOURCE_PASSWORD=qwerty009"
-        - "SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/app_db"
-        - "REDIS_HOST=redis"
-        - "REDIS_PORT=6380"
+        - "SPRING_DATASOURCE_PASSWORD=RoflanParol"
+        - "SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/ludik_db"
 
 
+
+networks:
+  cloud:
+    external: true
 
 volumes:
   postgres_volume:
     external: true
 
-networks:
-  cloud:
-    external: true
 

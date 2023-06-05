@@ -8,6 +8,8 @@ window.addEventListener('load', function() {
             showMessageOutput(JSON.parse(messageOutput.body));
         });
     });
+    let button = document.getElementById("sendMessage");
+    button.addEventListener('click', sendMessage);
 });
 
 let stompClient = null;

@@ -20,8 +20,9 @@ public class GamesController {
     private final UsersService usersService;
 
     @GetMapping("/slots")
-    public String getSlotsPage(Model model) {
+    public String getSlotsPage(Model model, Principal principal) {
         model.addAttribute("slots", slotService.getAllSlots());
+        model.addAttribute("user", usersService.getUserByEmail(principal.getName()));
         return "slots";
     }
 

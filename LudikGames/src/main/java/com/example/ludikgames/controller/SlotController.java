@@ -1,6 +1,7 @@
 package com.example.ludikgames.controller;
 
 import com.example.ludikgames.dto.slots.*;
+import com.example.ludikgames.model.User;
 import com.example.ludikgames.service.SlotService;
 import com.example.ludikgames.service.UsersService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,6 @@ public class SlotController {
     @PostMapping("/{id}/spin")
     public ResponseEntity<SpinResultDto> getSuccessOfSpin(@PathVariable("id") String id, @RequestBody SpinDto spinDto, Principal principal) {
         Integer balance = usersService.setBalanceByEmail(principal.getName(), -spinDto.getStake());
-
         return ResponseEntity.ok(SpinResultDto.builder()
                 .balance(balance)
                 .result("Success")
@@ -29,7 +29,7 @@ public class SlotController {
 
     @PostMapping("/{id}/result")
     public ResponseEntity<WinResultDto> getWinResult(@RequestBody WinSpinDto spinDto, Principal principal, @PathVariable String id) {
-        WinResultDto result = slotService.getResult(spinDto);
+        WinResultDto result = slotService.getResult(spinDto, principal.getName());
         Integer balance = usersService.setBalanceByEmail(principal.getName(), result.getWonMoney());
 
         result.setBalance(balance);

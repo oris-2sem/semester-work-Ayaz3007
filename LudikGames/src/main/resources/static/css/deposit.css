@@ -1,0 +1,25 @@
+body {
+    background-color: #282828;
+}
+
+.profile-heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: white;
+    margin-left: 25%;
+}
+.profile-block {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    height: 400px;
+    width: 50%;
+    margin: 0 auto;
+}
+.form-label {
+    font-weight: bold;
+}
+.form-control {
+    margin-bottom: 10px;
+}

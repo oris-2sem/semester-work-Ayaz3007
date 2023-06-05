@@ -10,4 +10,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface LeaderBoardRepository extends JpaRepository<Leaderboard, UUID> {
+    List<Leaderboard> findAllByOrderByPointsDesc();
 }

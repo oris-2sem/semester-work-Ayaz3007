@@ -25,13 +25,11 @@ public class SupportChat {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
     @ManyToOne
     @JoinColumn(name = "moderator_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private User moderator;
 
-    @OneToMany(mappedBy = "supportChat", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "supportChat", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<SupportMessage> messages;
 }

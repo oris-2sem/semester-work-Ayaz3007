@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
-    public void handleException(Exception ex) {
+    @ExceptionHandler(RuntimeException.class)
+    public String handleException(Exception ex) {
 
         Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
         logger.error("Произошло исключение", ex);
+
+        return "redirect:/error";
     }
 }

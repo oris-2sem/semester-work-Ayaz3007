@@ -69,4 +69,10 @@ public class SupportChatServiceImpl implements SupportChatService {
         UUID chatId = UUID.fromString(uuid);
         return supportChatRepository.findById(chatId).orElseThrow();
     }
+
+    @Override
+    public void deleteChat(String uuid) {
+        UUID chatId = UUID.fromString(uuid);
+        supportChatRepository.deleteById(chatId);
+    }
 }

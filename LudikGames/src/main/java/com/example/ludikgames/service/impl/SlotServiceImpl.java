@@ -4,10 +4,14 @@ import com.example.ludikgames.dto.slots.FavouriteSlotDto;
 import com.example.ludikgames.dto.slots.SlotDto;
 import com.example.ludikgames.dto.slots.WinResultDto;
 import com.example.ludikgames.dto.slots.WinSpinDto;
+import com.example.ludikgames.exceptions.NotFoundException;
+import com.example.ludikgames.model.Leaderboard;
 import com.example.ludikgames.model.Slot;
 import com.example.ludikgames.model.User;
+import com.example.ludikgames.repository.LeaderBoardRepository;
 import com.example.ludikgames.repository.SlotRepository;
 import com.example.ludikgames.repository.UsersRepository;
+import com.example.ludikgames.service.LeaderboardService;
 import com.example.ludikgames.service.SlotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,9 +27,10 @@ public class SlotServiceImpl implements SlotService {
 
     private final SlotRepository slotRepository;
     private final UsersRepository usersRepository;
+    private final LeaderBoardRepository leaderBoardRepository;
     private static final double[] symbolsPrice = new double[]{0.25, 0.5, 1, 2, 5};
     @Override
-    public WinResultDto getResult(WinSpinDto spinDto) {
+    public WinResultDto getResult(WinSpinDto spinDto, String email) {
         double money = 0;
         List<Integer> symbols = spinDto.getSymbols();
         Integer stake = spinDto.getStake();
@@ -35,6 +40,15 @@ public class SlotServiceImpl implements SlotService {
         money += getResultOfLine(new int[]{2, 5, 8, 11, 14}, symbols, stake, wonSymbols);
         money += getResultOfLine(new int[]{0, 4, 8, 11, 14}, symbols, stake, wonSymbols);
         money += getResultOfLine(new int[]{2, 4, 6, 9, 12}, symbols, stake, wonSymbols);
+
+        User user = usersRepository.findByEmail(email).orElseThrow();
+        Leaderboard leaderboard = user.getPlace();
+        leaderboard.setPoints(leaderboard.getPoints() + (int)money/stake);
+        user.setPlace(leaderboard);
+        leaderboard.setUser(user);
+
+        usersRepository.save(user);
+        leaderBoardRepository.save(leaderboard);
         return WinResultDto.builder()
                 .wonMoney((int) money)
                 .wonSymbols(wonSymbols)
@@ -65,20 +79,22 @@ public class SlotServiceImpl implements SlotService {
 
     @Override
     public void addSlotToFavourite(FavouriteSlotDto favouriteSlotDto, String email) {
-        User user = usersRepository.findByEmail(email).orElseThrow();
         Slot slot = slotRepository.getReferenceById(UUID.fromString(favouriteSlotDto.getSlotId()));
+        User user = usersRepository.findByEmail(email).orElseThrow();
         if(!user.getSlots().contains(slot)) {
             user.getSlots().add(slot);
             usersRepository.save(user);
         }
     }
 
+
     @Override
     public void deleteSlotFromFavourite(FavouriteSlotDto favouriteSlotDto, String email) {
         Slot slot = slotRepository.getReferenceById(UUID.fromString(favouriteSlotDto.getSlotId()));
         User user = usersRepository.findByEmail(email).orElseThrow();
-        user.getSlots().remove(slot);
         slot.getUsers().remove(user);
+        user.getSlots().remove(slot);
+        slotRepository.save(slot);
         usersRepository.save(user);
     }
 
